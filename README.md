@@ -1,5 +1,5 @@
 # Intallation
- #### 1) create migrations
+ #### 1) create migrations dir , if missing, otherwise directly goto step 2
  ###### run command --  alembic init migrations
 
  **change env.py file inside the  migrations dir created above**
