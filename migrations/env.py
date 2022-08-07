@@ -4,6 +4,10 @@ from sqlalchemy import engine_from_config
 #from models import Base
 from db.database import Base
 from models.user import User
+from models.assistance import Assistance
+from models.request_type import RequestType
+from models.requests import Request
+
 from sqlalchemy import pool
 
 from alembic import context
