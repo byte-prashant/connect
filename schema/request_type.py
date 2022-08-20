@@ -17,6 +17,6 @@ class RequirementTypeSchema(BaseModel):
 
 class ResposnseRequirementTypeSchema(BaseModel):
     name: str
-    id:int
+
 
 

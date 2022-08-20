@@ -16,21 +16,24 @@ requirement_router = APIRouter(prefix="/requirement")
 async def create_requirement(
     req: RequirementTypeSchema, db: Session = Depends(get_db)
 ):
-    logging.info("Creating User")
-    existing_req = db.query(RequestType).filter(RequestType.name == req.name.upper())
-    if not db.query(existing_req.exists()):
-        db_req = RequestType(name=req.name,  is_active=True)
+    logging.info("Creating Reuest Type")
+    existing_req = db.query(RequestType).filter(RequestType.name == req.name.upper()).first()
+    #print(db.query(existing_req.exists()))
+    if not existing_req:
+        db_req = RequestType(name=req.name.upper(),  is_active=True)
+        logging.info("Creating Reuest no exist Type")
+        print("yo=============================")
         db.add(db_req)
         db.commit()
         db.refresh(db_req)
-        return db_req
+        return req
     else:
         return {**req.dict(), "msg": "This name already exist"}
 
 @requirement_router.get(
     "/", tags=["get requirements "]
 )
-async def create_requirement( db: Session = Depends(get_db)
+async def get_requirement( db: Session = Depends(get_db)
 ):
     logging.info("Creating User")
     req = db.query(RequestType).filter(RequestType.is_active==True).all()
