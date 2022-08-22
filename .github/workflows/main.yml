@@ -23,15 +23,4 @@ jobs:
           REMOTE_USER: ${{ secrets.USER_NAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
 
-        run: |
-          pwd
-          echo "$SSH_PUBLIC_PEM_FILE" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${AWS_HOST} '
-            cd {/path/to/your/project/directory} &&
-            git checkout main &&
-            git fetch --all &&
-            git reset --hard origin/main &&
-            git pull origin main &&
-            docker-compose up -d --build &&
-
-          '
+        
