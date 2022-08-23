@@ -21,6 +21,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PUBLIC_PEM_FILE }}
           REMOTE_HOST: ${{ secrets.AWS_HOST }}
           REMOTE_USER: ${{ secrets.USER_NAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
+         
 
         
