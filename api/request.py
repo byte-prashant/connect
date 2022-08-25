@@ -7,6 +7,7 @@ from models.requests import Request
 from models.request_type import RequestType
 from models.user import User
 import uuid
+from worker.celery_app import sms_worker
 
 ##  reference no's can be pre-populated in redis and used
 
@@ -26,7 +27,7 @@ async def create_requirement(
     phone = DEFAULT_USER_PHONE
     if req.phone:
         phone = req.phone
-    logging.debug("God has been called",phone)
+    logging.debug("God has been called", phone)
     existing_req = db.query(User).filter(User.phone == phone)
     if not db.query(existing_req.exists()):
         logging.debug("Creating account for God")
@@ -41,6 +42,27 @@ async def create_requirement(
     db.add(db_req)
     db.commit()
     db.refresh(db_req)
+    task = sms_worker.delay("Your request registered successfully. Ref no is {}".format(reference_no), "+919560109169")
+    print(task.get())
     return { **req.dict(), "msg":"Request registered", "reference_no":reference_no}
 
-
+"""
+SELECT * FROM (
+    SELECT *, 
+        (
+            (
+                (
+                    acos(
+                        sin(( $LATITUDE * pi() / 180))
+                        *
+                        sin(( `latitud_fieldname` * pi() / 180)) + cos(( $LATITUDE * pi() /180 ))
+                        *
+                        cos(( `latitud_fieldname` * pi() / 180)) * cos((( $LONGITUDE - `longitude_fieldname`) * pi()/180)))
+                ) * 180/pi()
+            ) * 60 * 1.1515 * 1.609344
+        )
+    as distance FROM `myTable`
+) myTable
+WHERE distance <= $DISTANCE_KILOMETERS
+LIMIT 15;
+"""

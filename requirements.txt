@@ -41,3 +41,9 @@ Werkzeug==2.2.1
 zipp==3.8.1
 uvicorn==0.17.6
 fastapi
+celery
+flower
+redis
+fastapi-mail
+twilio
+

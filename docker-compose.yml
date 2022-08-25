@@ -55,6 +55,9 @@ services:
       - .:/app
     env_file:
       - .env
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     depends_on:
       - redis
       - db
@@ -64,16 +67,22 @@ services:
       context: .
       dockerfile: ./compose/local/fastapi/Dockerfile
     image: fastapi_celery_example_celery_flower
-    command: /start-flower
+    command: celery -A worker.celery_app.celery_ins flower --persisten=True
     volumes:
       - .:/app
     env_file:
       - .env
     ports:
       - 5557:5555
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
+      - FLOWER_PORT=5555
     depends_on:
       - redis
+      - celery_worker
       - db
+      - web
 
 volumes:
   postgres_data:

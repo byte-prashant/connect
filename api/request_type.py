@@ -22,7 +22,6 @@ async def create_requirement(
     if not existing_req:
         db_req = RequestType(name=req.name.upper(),  is_active=True)
         logging.info("Creating Reuest no exist Type")
-        print("yo=============================")
         db.add(db_req)
         db.commit()
         db.refresh(db_req)
