@@ -24,7 +24,7 @@ jobs:
           pwd
           echo "$SSH_PUBLIC_PEM_FILE" > private_key && chmod 400 private_key
           cat private_key
-          ssh  -i private_key ec2-user@ec2-43-205-195-112.ap-south-1.compute.amazonaws.com '
+          ssh  -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-43-205-195-112.ap-south-1.compute.amazonaws.com '
             cd /home/ec2-user/connect/ &&
             git checkout main &&
             git fetch --all &&
