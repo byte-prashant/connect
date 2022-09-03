@@ -4,6 +4,7 @@ from app.schema.users import UserSchema
 from app.schema.request_type import RequestTypeSchema
 from typing import List
 
+
 class RequestSchema(BaseModel):
 
     id: int
@@ -15,6 +16,7 @@ class RequestSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
 
 class RequestHelpSchema(BaseModel):
 
@@ -34,6 +36,7 @@ class CreateRequestSchema(RequestHelpSchema):
     class Config:
         orm_mode = True
 
+
 class ResponseHelpSchema(BaseModel):
 
     reference_no: str
@@ -42,9 +45,12 @@ class ResponseHelpSchema(BaseModel):
     class Config:
         orm_mode = True
 
+
 class SeekHelpSchema(BaseModel):
+    id: str
     lat: str
     long: str
+    req_type_id:int
     distance: float
 
     class Config:

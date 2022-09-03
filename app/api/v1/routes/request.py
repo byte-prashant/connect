@@ -1,6 +1,6 @@
 import logging
 from fastapi import APIRouter, Depends, status
-
+from typing import List
 from app.schema.request import RequestHelpSchema,CreateRequestSchema, CreateMultipleRequest, ResponseHelpSchema, SeekHelpSchema
 from app.schema.loginattempt import SystemUser
 from app.schema.users import RequestUserSchema
@@ -55,9 +55,8 @@ async def create_requirement(
     return { **req.dict(), "msg": "Request registered", "reference_no": reference_no}
 
 
-@help_router.get("",tags=["Needs"], status_code=status.HTTP_200_OK)
-def get_seeker_in_radius(lat:str,long:str,dist:float,all:bool,
-                          db: Session = Depends(get_db), user:SystemUser = Depends(get_current_user)):
+@help_router.get("", tags=["Needs"], status_code=status.HTTP_200_OK, response_model=List[SeekHelpSchema])
+def get_seeker_in_radius(lat:str,long:str,dist:float,db: Session = Depends(get_db)):
     """
 
     :param req:
@@ -75,7 +74,7 @@ def get_seeker_in_radius(lat:str,long:str,dist:float,all:bool,
     longitude = long
     dis = dist
     result = []
-    sql_query = f"SELECT lat,long,req_type_id,distance FROM ( SELECT *,( ( ( acos( sin(({ latitude } * pi() / 180)) * sin((CAST(lat AS float) * pi() / 180)) + cos(({latitude} * pi() / 180)) * cos(( CAST(lat AS float) * pi() / 180)) * cos( ( ({ longitude } - CAST(long AS float)) * pi() / 180 ) ) ) ) * 180 / pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM request ) request WHERE distance <= { dis } LIMIT 15`;"
+    sql_query = f"SELECT id,lat,long,req_type_id,distance FROM ( SELECT *,( ( ( acos( sin(({ latitude } * pi() / 180)) * sin((CAST(lat AS float) * pi() / 180)) + cos(({latitude} * pi() / 180)) * cos(( CAST(lat AS float) * pi() / 180)) * cos( ( ({ longitude } - CAST(long AS float)) * pi() / 180 ) ) ) ) * 180 / pi() ) * 60 * 1.1515 * 1.609344 ) as distance FROM request ) request WHERE distance <= { dis } LIMIT 15;"
     with get_db_conn() as conn:
         cur_result = conn.exec_driver_sql(sql_query, {})
         for row in cur_result:
@@ -110,14 +109,14 @@ def register_bulk_help(req: CreateMultipleRequest,
     :return:
     """
     seekers = req.seeker
-    existing_req_type = db.query(RequestType).get(1)
+
     existing_req = db.query(User).filter(User.phone == DEFAULT_USER_PHONE).first()
-    if not existing_req_type:
+    if not existing_req:
         return {"msg": "The god has not registered himself yet, so you have to enter his Data"}
 
     for seeker in list(seekers):
         reference_no = str(uuid.uuid4())
-
+        existing_req_type = db.query(RequestType).get(seeker['request_type_id'])
         req_obj = CreateRequestSchema(reference_no=reference_no, request_type=existing_req_type.id, user_id=existing_req.id,
                                    lat=seeker['lat'], long=seeker['long'])
         db_req_obj = CRUDRequest().create(db=db, request=req_obj)

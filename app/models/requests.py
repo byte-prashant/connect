@@ -12,6 +12,7 @@ class Request(Base):
     #seeker = relationship("User", back_populates="id")
     #request_type = relationship("RequestType", back_populates="request")
     is_active = Column(Boolean, default=True)
+    is_fullfilled = Column(Boolean, default=False)
     lat = Column(String)
     reference_no = Column(String, unique=True)
     long = Column(String)

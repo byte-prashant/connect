@@ -20,6 +20,7 @@ class RequirementTypeSchema(BaseModel):
     class Config:
         orm_mode = True
 
+
 class ResposnseRequirementTypeSchema(BaseModel):
     name: str
     msg: str
