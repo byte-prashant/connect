@@ -46,4 +46,8 @@ flower
 redis
 fastapi-mail
 twilio
-
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+pyotp
+fastapi_versioning

@@ -30,7 +30,8 @@ try:
         host=host,
         port=port
     )
-except psycopg2.OperationalError:
+except Exception  as e:
+    print(e)
     sys.exit(-1)
 sys.exit(0)
 

@@ -1,2 +1,2 @@
-migrations/versions
-.env
+migrations/versions/*
+

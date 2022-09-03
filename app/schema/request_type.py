@@ -10,13 +10,22 @@ class RequestTypeSchema(BaseModel):
     name: str
     is_active: bool
 
+    class Config:
+        orm_mode = True
+
 
 class RequirementTypeSchema(BaseModel):
     name: str
 
+    class Config:
+        orm_mode = True
 
 class ResposnseRequirementTypeSchema(BaseModel):
     name: str
+    msg: str
+
+    class Config:
+        orm_mode = True
 
 
 

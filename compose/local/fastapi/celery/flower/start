@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 
 worker_ready() {
-    celery -A worker.celery_app.celery_ins inspect ping
+    celery -A app.worker.celery_app.celery_ins inspect ping
 }
 
 until worker_ready; do
@@ -12,4 +12,4 @@ until worker_ready; do
   sleep 1
 done
 >&2 echo 'Celery workers is available'
-celery -A worker.celery_app.celery_ins flower --persisten=True
+celery -A app.worker.celery_app.celery_ins flower --persisten=True

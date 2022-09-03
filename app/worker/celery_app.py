@@ -1,5 +1,5 @@
 from celery import Celery
-from api.utils import send_sms
+from app.api.utils import send_sms
 import os
 
 celery_ins = Celery(__name__)

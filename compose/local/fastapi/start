@@ -5,5 +5,5 @@ set -o pipefail
 set -o nounset
 
 alembic upgrade head
-alembic revision --autogenerate -m 'first migration'
-uvicorn main:app --reload --reload-dir . --host 0.0.0.0
+alembic revision --autogenerate -m "migration $(date)"
+uvicorn app.main:app --reload --reload-dir . --host 0.0.0.0

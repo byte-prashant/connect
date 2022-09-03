@@ -18,9 +18,9 @@ services:
       - .env
     depends_on:
       - redis
-      - db
+      - database
 
-  db:
+  database:
     image: postgres:13-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -43,7 +43,7 @@ services:
       - .env
     depends_on:
       - redis
-      - db
+      - database
 
   celery_beat:
     build:
@@ -60,14 +60,14 @@ services:
       - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
     depends_on:
       - redis
-      - db
+      - database
 
   flower:
     build:
       context: .
       dockerfile: ./compose/local/fastapi/Dockerfile
     image: fastapi_celery_example_celery_flower
-    command: celery -A worker.celery_app.celery_ins flower --persisten=True
+    command: celery -A app.worker.celery_app.celery_ins flower --persisten=True
     volumes:
       - .:/app
     env_file:
@@ -81,7 +81,7 @@ services:
     depends_on:
       - redis
       - celery_worker
-      - db
+      - database
       - web
 
 volumes:
