@@ -63,5 +63,16 @@ class CreateMultipleRequest(BaseModel):
     class Config:
         orm_mode = True
 
+class UserNeedsSchema(BaseModel):
+    id: int
+    lat: str
+    long: str
+    is_fullfilled: bool = None
+    req_type_id: int
+    reference_no: str
+
+    class Config:
+        orm_mode = True
+
 
 
