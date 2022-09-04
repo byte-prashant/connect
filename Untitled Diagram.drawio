@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-09-04T16:57:07.131Z" agent="5.0 (X11)" etag="cBeh4xrsv4LMfTJwt1s-" version="20.2.8" type="github">
+<mxfile host="app.diagrams.net" modified="2022-09-04T16:59:52.775Z" agent="5.0 (X11)" etag="xC81AzimVplanbUIKsVp" version="20.2.8" type="github">
   <diagram id="PdPGKRBbVo9NFZVPzBSe" name="Page-1">
     <mxGraphModel dx="1350" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -298,7 +298,7 @@
             <mxGeometry x="1320" y="1000" width="120" height="47" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="points" lucidchartObjectId="QuJNZHIxo.E~" id="8AOV3glI9wSn0Q1u-08h-59">
+        <UserObject label="points/value" lucidchartObjectId="QuJNZHIxo.E~" id="8AOV3glI9wSn0Q1u-08h-59">
           <mxCell style="html=1;overflow=block;blockSpacing=1;whiteSpace=wrap;ellipse;fontSize=16.7;fontColor=#3a414a;spacing=3.8;strokeColor=#3a414a;strokeOpacity=100;rounded=1;absoluteArcSize=1;arcSize=9;strokeWidth=0.8;" vertex="1" parent="1">
             <mxGeometry x="1125" y="1030" width="120" height="47" as="geometry" />
           </mxCell>
