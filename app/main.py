@@ -1,10 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-from fastapi import APIRouter
-from app.api.v1.recipe import app_router
+from app.api import api_router
 from app.config import settings
-from fastapi_versioning import VersionedFastAPI, version
 app = FastAPI(title="Connect")
 
 app.add_middleware(
@@ -14,7 +12,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-api_router = APIRouter(prefix="/api")
-api_router.include_router(app_router)
+
 app.include_router(api_router)
 # app = VersionedFastAPI(app)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

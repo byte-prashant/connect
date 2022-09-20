@@ -123,3 +123,4 @@ DATABASE_URL = 'postgresql://fastapi:fastapi@localhost/connect_db'
 #### 3) run migrations using following commands
    * alembic revision --autogenerate -m 'first migration'
    * alembic upgrade head
+

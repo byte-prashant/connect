@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, Integer, String
-from app.api.utils import get_hashed_password
+from app.utils import get_hashed_password
 from sqlalchemy.event import listen
 from app.db.database import Base
 import pyotp

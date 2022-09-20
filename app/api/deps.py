@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from app.api.utils import (
+from app.utils import (
     ALGORITHM,
     JWT_SECRET_KEY
 )

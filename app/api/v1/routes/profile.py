@@ -9,13 +9,12 @@ from app.db.database import get_db
 from app.api.auth_managers import OtpLoginManager
 from app.models.user import User
 from app.models.loginattempt import LoginAttempt
-from app.api.utils import verify_password, create_access_token
+from app.utils import verify_password, create_access_token
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import status, HTTPException, Depends
 from app.worker.celery_app import sms_worker
 from sqlalchemy.orm import Session
 
-from app.api.utils import send_sms
 # ------------------------------------------------
 # create user using  phone no as username and password
 # create user using phone_no as username and otp as password
